@@ -4,17 +4,21 @@ function AddTechForm({ onAdd }) {
   const [name, setName] = useState('');
   const [category, setCategory] = useState('Languages');
   const [status, setStatus] = useState('Adopt');
+  const [description, setDescription] = useState('');
+  const [documentation, setDocumentation] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (name.trim() === '') return;
 
-    onAdd({ name, category, status });
+    onAdd({ name, category, status, description, documentation });
 
     // Очистим форму после добавления
     setName('');
     setCategory('Languages');
     setStatus('Adopt');
+    setDescription('');
+    setDocumentation('');
   };
 
   return (
@@ -45,6 +49,23 @@ function AddTechForm({ onAdd }) {
           <option value="Assess">Assess</option>
           <option value="Hold">Hold</option>
         </select>
+      </div>
+      <div>
+        <label>Description:</label>
+        <textarea
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          required
+        />
+      </div>
+      <div>
+        <label>Documentation URL:</label>
+        <input
+          type="url"
+          value={documentation}
+          onChange={(e) => setDocumentation(e.target.value)}
+          required
+        />
       </div>
       <button type="submit">Add Technology</button>
     </form>

@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
 
 function EditTechForm({ tech, onEdit }) {
-  const [name, setName] = useState(tech.name);
   const [category, setCategory] = useState(tech.category);
   const [status, setStatus] = useState(tech.status);
+  const [description, setDescription] = useState(tech.description);
+  const [documentation, setDocumentation] = useState(tech.documentation);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onEdit({ name, category, status });
+    onEdit({ 
+      name: tech.name, 
+      category, 
+      status, 
+      description, 
+      documentation 
+    }); // Имя технологии остается прежним
   };
 
   return (
@@ -16,10 +23,8 @@ function EditTechForm({ tech, onEdit }) {
         <label>Technology Name:</label>
         <input
           type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-          disabled
+          value={tech.name}
+          disabled // Имя не редактируемое
         />
       </div>
       <div>
@@ -39,6 +44,23 @@ function EditTechForm({ tech, onEdit }) {
           <option value="Assess">Assess</option>
           <option value="Hold">Hold</option>
         </select>
+      </div>
+      <div>
+        <label>Description:</label>
+        <textarea
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          required
+        />
+      </div>
+      <div>
+        <label>Documentation URL:</label>
+        <input
+          type="url"
+          value={documentation}
+          onChange={(e) => setDocumentation(e.target.value)}
+          required
+        />
       </div>
       <button type="submit">Save Changes</button>
     </form>
