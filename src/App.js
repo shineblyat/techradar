@@ -1,23 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import TechRadarChart from './components/TechRadarChart';
+import AddTechForm from './components/AddTechForm';
 
 function App() {
+  const [techData, setTechData] = useState([
+    { name: "JavaScript", category: "Languages", status: "Adopt" },
+    { name: "Python", category: "Languages", status: "Adopt" },
+    { name: "GraphQL", category: "Tools", status: "Trial" },
+    { name: "Docker", category: "Platforms", status: "Adopt" },
+    { name: "Kubernetes", category: "Platforms", status: "Adopt" },
+    { name: "Rust", category: "Languages", status: "Hold" },
+    { name: "Flink", category: "Tools", status: "Assess" }
+  ]);
+
+  const handleAddTech = (newTech) => {
+    setTechData([...techData, newTech]);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Tech Radar</h1>
+      <TechRadarChart data={techData} />
+      <AddTechForm onAdd={handleAddTech} />
     </div>
   );
 }
